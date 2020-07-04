@@ -1,0 +1,5 @@
+import smtplib
+
+
+class MailSender:
+    
