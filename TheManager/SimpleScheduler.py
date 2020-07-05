@@ -1,6 +1,6 @@
 import schedule
 import time
-
+from . import MailSender
 class MySimpleScheduler:
 
 
@@ -18,4 +18,4 @@ class MySimpleScheduler:
          schedule.every(2).seconds.do(self.getjob , self.y)
          while True :
            schedule.run_pending()
-           time.sleep(1000)
+           time.sleep(1)

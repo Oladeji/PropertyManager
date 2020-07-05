@@ -41,10 +41,10 @@ class SubProperty(models.Model):
     SubPropertyState = models.CharField(max_length=100,choices=SUB_PROP_STATE_CHOICES, default=VACANT)
     # SubPropertyState = models.CharField(max_length=100)
     RentRate = models.DecimalField(max_digits=15, decimal_places=2)
-    EffectiveDate = models.DateField('date Property was given out')
-    ExpiryDate =models.DateField('Rent Expiry Date')
+    EffectiveDate = models.DateTimeField('date Property was given out')
+    ExpiryDate =models.DateTimeField('Rent Expiry Date')
     PaymentState = models.CharField(max_length=20)
-
+    #PresentOccupant = models.CharField(max_length=100)
 
     def __str__(self):
         return self.SubPropertyName +' @ '+self.SubPropertyDescription

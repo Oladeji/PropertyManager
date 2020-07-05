@@ -1,9 +1,13 @@
 from django.apps import AppConfig
-from . import sayhello
-from . import SimpleScheduler
+#from . import sayhello
+
+
+
 class ThemanagerConfig(AppConfig):
     name = 'TheManager'
 
-
-x = SimpleScheduler.MySimpleScheduler("Halleluyah")
-x.singing()
+    def ready(self):
+        from . import MailSender   
+        x = MailSender.MailSender()
+        #x.PerformScheduling()
+        x.start()
