@@ -11,7 +11,7 @@ class Agent(models.Model):
 
 
     def __str__(self):
-        return 'Name =>'+ self.AgentName +' Address :=> ' +self.Address +' Phone No: '+ self.PhoneNo
+        return 'NAME :>'+ self.AgentName +', ADDRESS :> ' +self.Address +', PHONE No:>  '+ self.PhoneNo
    
 
 class Property(models.Model):
@@ -24,7 +24,7 @@ class Property(models.Model):
 
 
     def __str__(self):
-        return self.PropertyName + self.PropertyDescription 
+        return 'NAME :> '+self.PropertyName +', DESCRIPTION :> ' +self.PropertyDescription +', @ :>' +self.PropertyLocation  +', PROPERTY STATE :> '+ self.PropertyState
 
 class SubProperty(models.Model):
     VACANT='VC'

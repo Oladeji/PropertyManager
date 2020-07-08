@@ -1,4 +1,6 @@
-import smtplib
+import smtplib , ssl
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 import schedule
 import time
 from datetime import datetime
@@ -30,13 +32,13 @@ class MailSender:
             t = t + ("<tr>")
             t = t + ("<td>"+str(sno)+"</td>	<td>"+item.SubPropertyName+ "</td><td>" + item.SubPropertyName + "</td><td>" + period + "</td> <td>" + item.SubPropertyState + "</td><td>" + daysleft+ "</td>	<td>" + str(item.SubPropertyState) + "</td>		<td>" + item.SubPropertyDescription + "</td>")
             t = t + ("</tr>")
-            ++sno
+            sno=sno+1
             
         t = t + ("</tbody></table></body></html>")
         return t
 
         
-    def sendEmail(self ,sender_email, password, to, subject, msg):
+    def sendEmailOld(self ,sender_email, password, to, subject, msg):
         try:
             print ("Attempting to send mail")
             server = smtplib.SMTP('smtp.gmail.com', 587)
@@ -49,6 +51,45 @@ class MailSender:
             print("Email Sent")
         except:
             print("Some Error Occured while sending mail")
+
+
+    def sendEmail(self ,sender_email, password, to, subject, msg):
+        try:
+            print ("Attempting to send mail")
+            server = smtplib.SMTP('smtp.gmail.com', 587)
+            server.starttls()
+            server.login(sender_email, password)
+
+            message = MIMEMultipart("alternative")
+            message["Subject"] = "multipart test"
+            message["From"] = sender_email
+            message["To"] = to
+            text = """\
+            Hi,
+            How are you?
+            Real Python has many great tutorials:
+            www.realpython.com"""
+
+
+
+            # Turn these into plain/html MIMEText objects
+            part1 = MIMEText(text, "plain")
+            part2 = MIMEText(msg, "html")
+
+            # Add HTML/plain-text parts to MIMEMultipart message
+            # The email client will try to render the last part first
+            message.attach(part1)
+            message.attach(part2)
+
+            # Create secure connection with server and send email
+            context = ssl.create_default_context()
+            print(message)
+            server.sendmail(sender_email, to, message.as_string())
+            server.quit()
+            print("Email Sent")
+        except:
+            print("Some Error Occured while sending mail")
+
 
 
     def collateResult(self):
