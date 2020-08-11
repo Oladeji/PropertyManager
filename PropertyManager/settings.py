@@ -25,10 +25,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'm7wqs%-)4uj1_x!4b-ij)f4i*)n89q%tv1q#(53m2n7uu=ss-e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['thepropertymanager.herokuapp.com','127.0.0.1']
-
+#ALLOWED_HOSTS = ['thepropertymanager.herokuapp.com','127.0.0.1']
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -58,7 +58,7 @@ ROOT_URLCONF = 'PropertyManager.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -99,7 +99,9 @@ DATABASES = {
         # 'PASSWORD': 'Ranti',
         # 'HOST': '127.0.0.1',
         # 'PORT': '5432',
-          'ENGINE': 'django.db.backends.postgresql',
+ 
+ 
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': "xobstwqe",
         'USER': 'xobstwqe',
         'PASSWORD': 'Q5wQ_yFPmfbGLstBn8hB8PZFpYlUwcrO',
@@ -152,3 +154,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+MEDIA_URL = '/tenantpicsdir/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'tenantpicsdir')
+

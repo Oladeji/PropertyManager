@@ -11,6 +11,7 @@ from django.utils import timezone
 class MailSender:
 
     def getpage(self, properties):
+        
         sno = 1
         t = ""
         period = ""
@@ -20,21 +21,22 @@ class MailSender:
         t = t + ("<table border=\"1\" cellpadding=\"1\" cellspacing=\"1\" style=\"width:1000px;\">")
         t = t + ("<thead>	<tr><th scope=\"col\">SNO</th><th scope=\"col\">PROPERTY</th>")
         t = t + ("<th scope=\"col\">AGENT</th><th scope=\"col\">PERIOD</th> <th scope=\"col\"> STATE</th> <th scope=\"col\">&nbsp;DAYS LEFT</th>")
-        t = t + ("<th scope=\"col\">AMOUNT PAID</th>	<th scope=\"col\">OCCUPANT</th></tr>	</thead>	<tbody>")
+        t = t + ("<th scope=\"col\">RENT</th><th scope=\"col\">AMOUNT PAID</th><th scope=\"col\">BALANCE</th>	<th scope=\"col\">OCCUPANT</th></tr>	</thead>	<tbody>")
         for item in properties:           
             if (item.SubPropertyState=="VACANT"):
                 period = "----"
                 daysleft = "----"
             else :
                 period = str(item.EffectiveDate) + " to " +str( item.ExpiryDate)
-                daysleft =  str(timezone.now() - item.ExpiryDate) 
+                daysleft =  str(timezone.localdate() - item.ExpiryDate) 
                 
             t = t + ("<tr>")
-            t = t + ("<td>"+str(sno)+"</td>	<td>"+item.SubPropertyName+ "</td><td>" + item.SubPropertyName + "</td><td>" + period + "</td> <td>" + item.SubPropertyState + "</td><td>" + daysleft+ "</td>	<td>" + str(item.SubPropertyState) + "</td>		<td>" + item.SubPropertyDescription + "</td>")
+            t = t + ("<td>"+str(sno)+"</td>	<td>"+item.getpropertyname()+' - '+item.SubPropertyName+ "</td><td>" + item.getagentname() + "</td><td>" + period + "</td> <td>" + item.SubPropertyState + "</td><td>" + daysleft+ "</td>	<td>" + str(item.RentRate) + "</td>	<td>" + str(item.AmountPaidSofar) + "</td>	<td>" + str(item.AmountToBalance) + "</td>		<td>" + item.PresentOccupant + "</td>")
             t = t + ("</tr>")
             sno=sno+1
             
         t = t + ("</tbody></table></body></html>")
+        print('AGENT ',item.getagentname() +'  '+item.getpropertyname()+' - '+item.SubPropertyName)
         return t
 
         
@@ -86,7 +88,7 @@ class MailSender:
             print(message)
             server.sendmail(sender_email, to, message.as_string())
             server.quit()
-            print("Email Sent")
+            print("Email Sent Finally ")
         except:
             print("Some Error Occured while sending mail")
 
@@ -102,7 +104,7 @@ class MailSender:
 
 
     def PerformScheduling(self):
-         schedule.every(1).seconds.do(self.collateResult )
+         schedule.every(15).minutes.do(self.collateResult )
          while True :
             schedule.run_pending()
             time.sleep(1)
@@ -110,7 +112,7 @@ class MailSender:
 
     def start(self):
          scheduler = BackgroundScheduler()
-         scheduler.add_job(self.collateResult , 'interval', minutes=1)
+         scheduler.add_job(self.collateResult , 'interval', minutes=15)
          scheduler.start()
 """
     if __name__ == '__main__':

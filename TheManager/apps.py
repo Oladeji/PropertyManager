@@ -7,7 +7,8 @@ class ThemanagerConfig(AppConfig):
     name = 'TheManager'
 
     def ready(self):
-        from . import MailSender   
-        x = MailSender.MailSender()
-        #x.PerformScheduling()
-        x.start()
+         from . import MailSender   
+         x = MailSender.MailSender()
+         print('I am working...')
+         #x.PerformScheduling()
+         x.start()
