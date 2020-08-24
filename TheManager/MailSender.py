@@ -104,7 +104,7 @@ class MailSender:
 
 
     def PerformScheduling(self):
-         schedule.every(15).minutes.do(self.collateResult )
+         schedule.every(15).days.do(self.collateResult )
          while True :
             schedule.run_pending()
             time.sleep(1)
@@ -112,7 +112,7 @@ class MailSender:
 
     def start(self):
          scheduler = BackgroundScheduler()
-         scheduler.add_job(self.collateResult , 'interval', minutes=15)
+         scheduler.add_job(self.collateResult , 'interval', days=15)
          scheduler.start()
 """
     if __name__ == '__main__':

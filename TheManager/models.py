@@ -79,7 +79,7 @@ class Tenant (models.Model):
     OccupantPhoneNo = models.CharField('PHONE NO',max_length=100)
     Referee = models.CharField('REFEREE NAME',max_length=100)  
     OccupantRefDetails = models.CharField('REFEREE INFORMATION',max_length=100)
-    TenantPhoto = models.ImageField('PASSPORT PHOTO',upload_to='TenantPhotos')
+    #TenantPhoto = models.ImageField('PASSPORT PHOTO',upload_to='TenantPhotos')
     TenantState = models.CharField(max_length=100,choices=TenantCHOICES, default=PRESENT)
     CurrentRunningPeriod = models.CharField('PERIOD OF RENT',max_length=50)
     CurrentRentRate = models.DecimalField('TOTAL AMOUNT FOR PERIOD (Auto Fill)',max_digits=15, decimal_places=2)
@@ -175,7 +175,7 @@ def Update_PeriodicRentTransactions(sender, instance, **kwargs):
         if PaymentState =='YET TO BALANCE UP':
             A_SubProperty.SubPropertyState = PaymentState
         else:
-           A_SubProperty.SubPropertyState = Rented
+           A_SubProperty.SubPropertyState = 'RENTED'
         A_SubProperty.save()
 
         #A_PeriodicRentTransactions.save()
