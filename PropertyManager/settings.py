@@ -27,8 +27,8 @@ SECRET_KEY = 'm7wqs%-)4uj1_x!4b-ij)f4i*)n89q%tv1q#(53m2n7uu=ss-e'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['thepropertymanager.herokuapp.com','127.0.0.1']
-#ALLOWED_HOSTS = []
+#ALLOWED_HOSTS = ['thepropertymanager.herokuapp.com','127.0.0.1']
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -93,20 +93,20 @@ DATABASES = {
 # sudo apt-get install libpq-dev python3.8-dev
 # pipenv install --python=3.8 psycopg2
 # pipenv shell
+         'ENGINE': 'django.db.backends.postgresql',
+         'NAME': "PropertyDB",
+         'USER': 'postgres',
+         'PASSWORD': 'Ranti',
+         'HOST': '127.0.0.1',
+         'PORT': '5432',
+ 
+ 
         # 'ENGINE': 'django.db.backends.postgresql',
-        # 'NAME': "PropertyDB",
-        # 'USER': 'postgres',
-        # 'PASSWORD': 'Ranti',
-        # 'HOST': '127.0.0.1',
+        # 'NAME': "xobstwqe",
+        # 'USER': 'xobstwqe',
+        # 'PASSWORD': 'Q5wQ_yFPmfbGLstBn8hB8PZFpYlUwcrO',
+        # 'HOST': 'rogue.db.elephantsql.com',
         # 'PORT': '5432',
- 
- 
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': "xobstwqe",
-        'USER': 'xobstwqe',
-        'PASSWORD': 'Q5wQ_yFPmfbGLstBn8hB8PZFpYlUwcrO',
-        'HOST': 'rogue.db.elephantsql.com',
-        'PORT': '5432',
     }
 }
 
